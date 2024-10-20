@@ -1,9 +1,11 @@
 require('dotenv').config();
+const { webhookCallback } = require('grammy');
+
 const express = require('express');
 const authRoutes = require('./routes/authRoutes');
 const pdfRoutes = require('./routes/pdfRoutes');
 const botRoutes = require('./routes/botRoutes');
-const { handleTelegramUpdate } = require('./controllers/telegramController');
+const  bot  = require('./controllers/telegramController');
 
 
 const app = express();
@@ -13,7 +15,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/pdf', pdfRoutes);
 app.use('/api/bot', botRoutes); // Bot routes for saving tokens
-
+app.use(webhookCallback(bot, 'express'))
 
 
 // Start server
