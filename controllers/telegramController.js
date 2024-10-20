@@ -55,15 +55,13 @@ const handleTelegramUpdate = async (req, res) => {
       .eq('user_id', userId)
       .single();
 
-       console.log(data)
 
     if (error || !data) {
       res.status(404).json({message: 'Bot token not found for this user.'});
     }
 
 
-    const bot = new Bot(data.bot_token);
-    bot.handleUpdate(req.body);
+    exports.bot = new Bot(data.bot_token);
     res.sendStatus(200);
     
   } catch (error) {
