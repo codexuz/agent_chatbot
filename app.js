@@ -15,7 +15,6 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/pdf', pdfRoutes);
 app.use('/api/bot', botRoutes); // Bot routes for saving tokens
-app.use(webhookCallback(bot, 'express'))
 
 
 // Start server
