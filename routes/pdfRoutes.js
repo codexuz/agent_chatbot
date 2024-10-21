@@ -4,7 +4,7 @@ const { parsePDF, queryAI } = require('../controllers/pdfController');
 const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' });
+const upload = multer();
 
 // Protected routes for authenticated users
 router.post('/upload', authMiddleware, upload.single('file'), parsePDF);
