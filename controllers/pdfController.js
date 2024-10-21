@@ -1,7 +1,5 @@
 // controllers/pdfController.js
 const pdfParse = require('pdf-parse');
-const fs = require('fs');
-const path = require('path');
 const supabase = require('../services/supabaseService');
 
 const { sendQueryToAI } = require('../services/aiService');
@@ -10,11 +8,10 @@ const { sendQueryToAI } = require('../services/aiService');
 const parsePDF = async (req, res) => {
   const { botId } = req.body
   const userId = req.user.id
-  const filePath = path.join(__dirname, '..', 'uploads', req.file.filename);
 
   try {
-    const dataBuffer = fs.readFileSync(filePath);
-    const pdfData = await pdfParse(dataBuffer);
+    
+    const pdfData = await pdfParse(req.file.buffer);
     
     // Save parsed PDF content to Supabase
     const { data, error } = await supabase
